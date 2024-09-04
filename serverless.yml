@@ -1,0 +1,21 @@
+service: where-its-at
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+
+functions:
+  getEvents:
+    handler: functions/getEvents.handler
+    events:
+      - http:
+          path: /events
+          method: GET
+
+  orderTickets:
+    handler: functions/orderTickets.handler
+    events:
+      - http:
+          path: /order
+          method: POST
