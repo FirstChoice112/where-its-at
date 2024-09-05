@@ -7,14 +7,14 @@ provider:
 
 functions:
   getEvents:
-    handler: functions/getEvents.handler
+    handler: dist/functions/getEvents.handler # Peka på dist, där JavaScript-filerna hamnar
     events:
       - http:
           path: /events
           method: GET
 
   orderTickets:
-    handler: functions/orderTickets.handler
+    handler: dist/functions/orderTickets.handler # Samma här
     events:
       - http:
           path: /order

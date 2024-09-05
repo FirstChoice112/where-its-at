@@ -1,5 +1,13 @@
-// events.js
-const events = [
+interface Event {
+  id: number;
+  artist: string;
+  date: string;
+  arena: string;
+  time: string;
+  price: string;
+}
+
+const events: Event[] = [
   {
     id: 1,
     artist: "Lasse-Stefans",
@@ -34,4 +42,4 @@ const events = [
   },
 ];
 
-module.exports.getEvents = () => events;
+export const getEvents = (): Event[] => events;

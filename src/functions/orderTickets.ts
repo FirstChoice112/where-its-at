@@ -1,11 +1,11 @@
 //* functions/orderTicket.js
-const events = require("../events").getEvents();
+import { APIGatewayProxyHandler } from "aws-lambda";
+import { getEvents } from "../events";
 
-module.exports.handler = async (event) => {
+export const handler: APIGatewayProxyHandler = async (event) => {
   try {
-    //* Konvertera event.body från JSON till JavaScript-objekt
-    const { id } = JSON.parse(event.body);
-    //* Hitta evenemanget med det angivna id:t
+    const events = getEvents();
+    const { id } = JSON.parse(event.body || "{}");
     const eventDetails = events.find((e) => e.id === id);
 
     if (!eventDetails) {
@@ -15,7 +15,6 @@ module.exports.handler = async (event) => {
       };
     }
 
-    //* Generera biljettNr
     const ticketNr = Math.floor(Math.random() * 10000);
 
     return {
@@ -31,7 +30,7 @@ module.exports.handler = async (event) => {
       statusCode: 400,
       body: JSON.stringify({
         message: "Invalid request",
-        error: error.message,
+        error: error instanceof Error ? error.message : "Unknown error",
       }),
     };
   }
